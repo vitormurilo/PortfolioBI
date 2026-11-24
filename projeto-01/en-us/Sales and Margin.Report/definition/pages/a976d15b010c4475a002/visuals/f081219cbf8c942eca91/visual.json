@@ -1,0 +1,37 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "f081219cbf8c942eca91",
+  "position": {
+    "x": 48,
+    "y": 1001,
+    "width": 1824,
+    "height": 65,
+    "z": 5,
+    "tabOrder": 5
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "A blank margin indicates no sales or missing reference cost in the selected data.",
+                    "textStyle": {
+                      "fontSize": "18pt",
+                      "color": "#40546A",
+                      "fontWeight": "normal"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,123 @@
+table TabelaVendas
+	lineageTag: 58a60e54-2ff0-4386-ab11-78f143c5e7a1
+
+	measure 'Legacy Net Sales' = SUM(TabelaVendas[Valor_Liquido])
+		formatString: "$"\ #,0.00;-"$"\ #,0.00;"$"\ #,0.00
+		lineageTag: aade56c7-76a8-427d-a0d5-9e31dcd15a8b
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Legacy Orders' = DISTINCTCOUNT(TabelaVendas[ID_Pedido])
+		formatString: 0
+		lineageTag: 7faa9d54-ceaa-438b-88b1-6a23e9135b7f
+
+	measure 'Legacy Average Order Value' = DIVIDE(TabelaVendas[Legacy Net Sales],TabelaVendas[Legacy Orders],0)
+		formatString: "$"\ #,0.00;-"$"\ #,0.00;"$"\ #,0.00
+		lineageTag: c72c0a68-d60a-433b-959f-14fa09df24d1
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Legacy Units Sold' = sum(TabelaVendas[Quantidade])
+		formatString: 0
+		lineageTag: 7eb9cd4f-4647-4d68-b9fd-35ef9e3fc681
+
+	column ID_Pedido
+		dataType: string
+		lineageTag: 95765dd6-f825-4f7b-83bf-cdc9cb083518
+		summarizeBy: none
+		sourceColumn: ID_Pedido
+
+		annotation SummarizationSetBy = Automatic
+
+	column Data_Venda
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 613919c3-8bff-4196-84fa-9a6c423b8773
+		summarizeBy: none
+		sourceColumn: Data_Venda
+
+		variation Variação
+			isDefault
+			relationship: f9bfe691-4bd7-4bcf-abad-4922b755dec1
+			defaultHierarchy: LocalDateTable_806da6b8-2032-46bf-b9ed-d6a09e90041b.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column ID_Produto
+		dataType: string
+		lineageTag: ecf29ff3-cf6c-4d53-b144-6ff6cf53f112
+		summarizeBy: none
+		sourceColumn: ID_Produto
+
+		annotation SummarizationSetBy = Automatic
+
+	column Product
+		dataType: string
+		lineageTag: 52ebd639-fe0b-4a0c-86e1-1b9098bcb7a8
+		summarizeBy: none
+		sourceColumn: Produto
+
+		annotation SummarizationSetBy = Automatic
+
+	column Category
+		dataType: string
+		lineageTag: 6ade44cf-4993-4ecc-957f-91d772421e9b
+		summarizeBy: none
+		sourceColumn: Categoria
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quantidade
+		dataType: int64
+		formatString: 0
+		lineageTag: c69500a3-359c-4536-acf9-ac1b65c573fe
+		summarizeBy: sum
+		sourceColumn: Quantidade
+
+		annotation SummarizationSetBy = Automatic
+
+	column Preco_Unitario
+		dataType: double
+		lineageTag: 2be16b7e-8307-4a8a-88fa-a21ab81bf91a
+		summarizeBy: sum
+		sourceColumn: Preco_Unitario
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Desconto_Valor
+		dataType: double
+		lineageTag: d016465c-7eb5-4a15-a73a-0a80083856a7
+		summarizeBy: sum
+		sourceColumn: Desconto_Valor
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Valor_Liquido
+		dataType: double
+		lineageTag: e522815b-4d79-4e54-820f-937eca4d0fce
+		summarizeBy: sum
+		sourceColumn: Valor_Liquido
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition TabelaVendas = m
+		mode: import
+		source =
+				let
+				    Fonte = Excel.Workbook(File.Contents(SalesWorkbookPath), null, true),
+				    TabelaVendas_Table = Fonte{[Item="TabelaVendas",Kind="Table"]}[Data],
+				    #"Tipo Alterado" = Table.TransformColumnTypes(TabelaVendas_Table,{{"ID_Pedido", type text}, {"Data_Venda", type date}, {"ID_Produto", type text}, {"Produto", type text}, {"Categoria", type text}, {"Quantidade", Int64.Type}, {"Preco_Unitario", type number}, {"Desconto_Valor", type number}, {"Valor_Liquido", type number}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table

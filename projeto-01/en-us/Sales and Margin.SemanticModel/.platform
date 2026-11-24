@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Sales and Margin"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "1011c547-4a3c-4e4b-9bf0-9051b82044ae"
+  }
+}

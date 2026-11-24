@@ -1,0 +1,80 @@
+table CatalogoProdutos
+	lineageTag: d1433d1f-efd7-4512-a44e-0df82b640e79
+
+	measure 'Net Sales' = SUM ( TabelaVendas[Valor_Liquido] )
+		formatString: "$" #,0.00
+		lineageTag: d5f75f90-8799-43de-8b34-37851022a18a
+
+	measure Orders = DISTINCTCOUNTNOBLANK ( TabelaVendas[ID_Pedido] )
+		formatString: #,0
+		lineageTag: 11eb9a5e-f87d-45c9-b4b5-59eaeab2bc03
+
+	measure 'Units Sold' = SUM ( TabelaVendas[Quantidade] )
+		formatString: #,0
+		lineageTag: 12c8484f-6c2d-43e6-8b4e-9cf776e59c55
+
+	measure Discounts = SUM ( TabelaVendas[Desconto_Valor] )
+		formatString: "$" #,0.00
+		lineageTag: d42cb1db-7c1c-4065-9292-ceeb38bdd533
+
+	measure 'Rows Without Cost' = COALESCE ( COUNTROWS ( FILTER ( TabelaVendas, ISBLANK ( RELATED ( CatalogoProdutos[Custo_Referencia] ) ) ) ), 0 )
+		formatString: #,0
+		lineageTag: ff15f394-4e21-4d1d-b2c0-aff9b3ff3e74
+
+	measure 'Estimated Gross Profit' = IF ( [Rows Without Cost] = 0 && NOT ISBLANK ( [Net Sales] ), [Net Sales] - SUMX ( TabelaVendas, TabelaVendas[Quantidade] * RELATED ( CatalogoProdutos[Custo_Referencia] ) ) )
+		formatString: "$" #,0.00
+		lineageTag: 617b43ac-ea2a-4f6c-a9b0-0f2588cf52a5
+
+	measure 'Estimated Gross Margin %' = DIVIDE ( [Estimated Gross Profit], [Net Sales] )
+		formatString: 0.00%
+		lineageTag: 6193117f-8d34-415d-9477-a6a70ee06213
+
+	measure 'Comparable Month Net Sales' = VAR Mes = SELECTEDVALUE ( Calendario[Month] ) VAR InicioHistorico = CALCULATE ( MIN ( TabelaVendas[Data_Venda] ), REMOVEFILTERS () ) VAR FimHistorico = CALCULATE ( MAX ( TabelaVendas[Data_Venda] ), REMOVEFILTERS () ) VAR FimMes = EOMONTH ( Mes, 0 ) RETURN IF ( NOT ISBLANK ( Mes ) && NOT ISBLANK ( InicioHistorico ) && Mes >= InicioHistorico && FimMes < DATE ( YEAR ( FimHistorico ), MONTH ( FimHistorico ), 1 ) && COUNTROWS ( VALUES ( Calendario[Date] ) ) = DAY ( FimMes ), [Net Sales] )
+		formatString: "$" #,0.00
+		lineageTag: 425bcebb-b7ea-4573-accc-fb30df64b2a4
+
+	measure 'Prior-Year Net Sales' = VAR Mes = SELECTEDVALUE ( Calendario[Month] ) VAR MesAnterior = EDATE ( Mes, -12 ) VAR FimAnterior = EOMONTH ( MesAnterior, 0 ) RETURN IF ( NOT ISBLANK ( Mes ) && NOT ISBLANK ( [Comparable Month Net Sales] ), CALCULATE ( [Comparable Month Net Sales], FILTER ( ALL ( Calendario ), Calendario[Date] >= MesAnterior && Calendario[Date] <= FimAnterior ) ) )
+		formatString: "$" #,0.00
+		lineageTag: b488bc64-7440-4be0-8db4-eabc955f5f6d
+
+	measure 'Year-over-Year Change %' = VAR Anterior = [Prior-Year Net Sales] RETURN IF ( NOT ISBLANK ( Anterior ), DIVIDE ( [Comparable Month Net Sales] - Anterior, Anterior ) )
+		formatString: 0.00%
+		lineageTag: fac2e776-31fb-49c4-8a51-d101611a6737
+
+	column ID_Produto
+		dataType: string
+		lineageTag: a7499317-1814-442c-9e8a-a991b1fd70a4
+		summarizeBy: none
+		sourceColumn: ID_Produto
+
+	column Product
+		dataType: string
+		lineageTag: de9133ca-7fc6-41c3-8398-e88afc15a232
+		summarizeBy: none
+		sourceColumn: Produto
+
+	column Category
+		dataType: string
+		lineageTag: df5c3054-9435-4833-bb4d-81e779d6d328
+		summarizeBy: none
+		sourceColumn: Categoria
+
+	column Custo_Referencia
+		dataType: decimal
+		lineageTag: d33c4d92-3ca5-4313-8c54-f8f030cceb12
+		summarizeBy: none
+		sourceColumn: Custo_Referencia
+
+	partition CatalogoProdutos = m
+		mode: import
+		source =
+				let
+				    Fonte = Excel.Workbook(File.Contents(SalesWorkbookPath), null, true),
+				    Catalogo = Fonte{[Item = "CatalogoProdutos", Kind = "Table"]}[Data],
+				    Colunas = Table.SelectColumns(Catalogo, {"ID_Produto", "Produto", "Categoria", "Custo_Referencia"}),
+				    Tipos = Table.TransformColumnTypes(Colunas, {
+				        {"ID_Produto", type text}, {"Produto", type text},
+				        {"Categoria", type text}, {"Custo_Referencia", Currency.Type}
+				    }, "pt-BR")
+				in
+				    Tipos

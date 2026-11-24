@@ -1,0 +1,38 @@
+table Calendario
+	lineageTag: 45644a49-0102-44c1-b983-bb6a8c4bb4e0
+	dataCategory: Time
+
+	column Date
+		dataType: dateTime
+		isKey
+		formatString: Short Date
+		lineageTag: 65b739de-f2d5-4836-a13e-15e213521ceb
+		summarizeBy: none
+		sourceColumn: Data
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Month
+		dataType: dateTime
+		formatString: MMM yyyy
+		lineageTag: c1223815-9ba5-43c2-88d1-991e34b55640
+		summarizeBy: none
+		sourceColumn: InicioMes
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition Calendario = m
+		mode: import
+		source =
+				let
+				    DatasVendas = List.RemoveNulls(TabelaVendas[Data_Venda]),
+				    Hoje = Date.From(DateTime.FixedLocalNow()),
+				    Inicio = Date.StartOfYear(List.Min(DatasVendas, Hoje)),
+				    Fim = Date.EndOfYear(List.Max(DatasVendas, Hoje)),
+				    Datas = List.Dates(Inicio, Duration.Days(Fim - Inicio) + 1, #duration(1, 0, 0, 0)),
+				    Calendario = Table.TransformColumnTypes(
+				        Table.FromList(Datas, Splitter.SplitByNothing(), {"Data"}), {{"Data", type date}}
+				    ),
+				    ComMes = Table.AddColumn(Calendario, "InicioMes", each Date.StartOfMonth([Data]), type date)
+				in
+				    ComMes

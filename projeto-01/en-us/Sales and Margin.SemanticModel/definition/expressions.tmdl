@@ -1,0 +1,7 @@
+/// Path to the USD sales workbook
+expression SalesWorkbookPath = "C:/Codex/PortfolioBI/projeto-01/en-us/Sales_Data_USD.xlsx" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 414a3cd8-2373-4c7a-989e-acbfdc74c133
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Text

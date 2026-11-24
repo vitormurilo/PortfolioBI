@@ -2,6 +2,8 @@
 
 ## Versão 2 · Vendas e margem no varejo
 
+[English edition · Sales and Margin in Retail (USD)](projeto-01/en-us/README.md)
+
 A versão comercial reúne a evolução mensal das vendas, a comparação anual e a análise de margem por produto em duas páginas. Abra o [relatório Power BI](Projeto_01_Vendas_e_Margem.pbix) e use a [base demonstrativa da V2](projeto-01/Base_Vendas_V2.xlsx). Para atualizar em outra máquina, indique o caminho completo da base em **Transformar dados → Gerenciar parâmetros → CaminhoArquivoExcel**. O código-fonte do relatório está disponível como [projeto PBIP](Projeto_01_Dashboard_Vendas_v2.pbip).
 
 Dois exemplos de decisões que o painel apoia:

@@ -1,0 +1,49 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "0461911f5b7c07d13153",
+  "position": {
+    "x": 48,
+    "y": 966,
+    "width": 1824,
+    "height": 91,
+    "z": 8,
+    "tabOrder": 8
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Gross profit is estimated using reference costs from the product catalog.",
+                    "textStyle": {
+                      "fontSize": "18pt",
+                      "color": "#40546A",
+                      "fontWeight": "normal"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Synthetic 2025–2026 data in USD. The prior-year line appears for comparable closed months.",
+                    "textStyle": {
+                      "fontSize": "18pt",
+                      "color": "#40546A",
+                      "fontWeight": "normal"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
