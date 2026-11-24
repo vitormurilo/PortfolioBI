@@ -1,0 +1,12 @@
+relationship f9bfe691-4bd7-4bcf-abad-4922b755dec1
+	joinOnDateBehavior: datePartOnly
+	fromColumn: TabelaVendas.Data_Venda
+	toColumn: LocalDateTable_806da6b8-2032-46bf-b9ed-d6a09e90041b.Date
+
+relationship VendasCatalogo
+	fromColumn: TabelaVendas.ID_Produto
+	toColumn: CatalogoProdutos.ID_Produto
+
+relationship VendasCalendario
+	fromColumn: TabelaVendas.Data_Venda
+	toColumn: Calendario.Data

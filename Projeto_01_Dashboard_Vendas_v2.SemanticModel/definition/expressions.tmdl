@@ -1,0 +1,7 @@
+/// Caminho do arquivo Excel de vendas
+expression CaminhoArquivoExcel = "C:/Codex/PortfolioBI/projeto-01/Base_Vendas_V2.xlsx" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 414a3cd8-2373-4c7a-989e-acbfdc74c133
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Text

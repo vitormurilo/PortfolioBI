@@ -1,0 +1,49 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "0461911f5b7c07d13153",
+  "position": {
+    "x": 48,
+    "y": 966,
+    "width": 1824,
+    "height": 91,
+    "z": 8,
+    "tabOrder": 8
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Margem estimada a partir do custo de referência do catálogo.",
+                    "textStyle": {
+                      "fontSize": "18pt",
+                      "color": "#40546A",
+                      "fontWeight": "normal"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Histórico sintético de 2025 e 2026. A linha do ano anterior aparece para meses fechados equivalentes.",
+                    "textStyle": {
+                      "fontSize": "18pt",
+                      "color": "#40546A",
+                      "fontWeight": "normal"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

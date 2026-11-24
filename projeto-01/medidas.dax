@@ -1,0 +1,61 @@
+Faturamento líquido =
+    SUM ( TabelaVendas[Valor_Liquido] )
+
+Pedidos =
+    DISTINCTCOUNTNOBLANK ( TabelaVendas[ID_Pedido] )
+
+Unidades vendidas =
+    SUM ( TabelaVendas[Quantidade] )
+
+Descontos comerciais =
+    SUM ( TabelaVendas[Desconto_Valor] )
+
+Linhas sem custo =
+    COALESCE (
+        COUNTROWS (
+            FILTER ( TabelaVendas, ISBLANK ( RELATED ( CatalogoProdutos[Custo_Referencia] ) ) )
+        ),
+        0
+    )
+
+Margem bruta estimada =
+    IF (
+        [Linhas sem custo] = 0 && NOT ISBLANK ( [Faturamento líquido] ),
+        [Faturamento líquido]
+            - SUMX ( TabelaVendas, TabelaVendas[Quantidade] * RELATED ( CatalogoProdutos[Custo_Referencia] ) )
+    )
+
+Margem bruta estimada % =
+    DIVIDE ( [Margem bruta estimada], [Faturamento líquido] )
+
+Faturamento mês comparável =
+    VAR Mes = SELECTEDVALUE ( Calendario[InicioMes] )
+    VAR InicioHistorico = CALCULATE ( MIN ( TabelaVendas[Data_Venda] ), REMOVEFILTERS () )
+    VAR FimHistorico = CALCULATE ( MAX ( TabelaVendas[Data_Venda] ), REMOVEFILTERS () )
+    VAR FimMes = EOMONTH ( Mes, 0 )
+    RETURN
+        IF (
+            NOT ISBLANK ( Mes ) && NOT ISBLANK ( InicioHistorico )
+                && Mes >= InicioHistorico
+                && FimMes < DATE ( YEAR ( FimHistorico ), MONTH ( FimHistorico ), 1 )
+                && COUNTROWS ( VALUES ( Calendario[Data] ) ) = DAY ( FimMes ),
+            [Faturamento líquido]
+        )
+
+Faturamento mesmo mês do ano anterior =
+    VAR Mes = SELECTEDVALUE ( Calendario[InicioMes] )
+    VAR MesAnterior = EDATE ( Mes, -12 )
+    VAR FimAnterior = EOMONTH ( MesAnterior, 0 )
+    RETURN
+        IF (
+            NOT ISBLANK ( Mes ) && NOT ISBLANK ( [Faturamento mês comparável] ),
+            CALCULATE (
+                [Faturamento mês comparável],
+                FILTER ( ALL ( Calendario ), Calendario[Data] >= MesAnterior && Calendario[Data] <= FimAnterior )
+            )
+        )
+
+Variação anual % =
+    VAR Anterior = [Faturamento mesmo mês do ano anterior]
+    RETURN
+        IF ( NOT ISBLANK ( Anterior ), DIVIDE ( [Faturamento mês comparável] - Anterior, Anterior ) )

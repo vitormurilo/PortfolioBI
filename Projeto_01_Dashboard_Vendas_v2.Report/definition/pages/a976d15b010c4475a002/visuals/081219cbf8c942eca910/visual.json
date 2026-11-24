@@ -1,0 +1,179 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "081219cbf8c942eca910",
+  "position": {
+    "x": 612,
+    "y": 300,
+    "width": 1260,
+    "height": 682,
+    "z": 4,
+    "tabOrder": 4
+  },
+  "visual": {
+    "visualType": "pivotTable",
+    "query": {
+      "queryState": {
+        "Rows": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "CatalogoProdutos"
+                    }
+                  },
+                  "Property": "Categoria"
+                }
+              },
+              "queryRef": "CatalogoProdutos.Categoria",
+              "nativeQueryRef": "Categoria",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "CatalogoProdutos"
+                    }
+                  },
+                  "Property": "Produto"
+                }
+              },
+              "queryRef": "CatalogoProdutos.Produto",
+              "nativeQueryRef": "Produto",
+              "active": true
+            }
+          ]
+        },
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "CatalogoProdutos"
+                    }
+                  },
+                  "Property": "V2 Faturamento líquido"
+                }
+              },
+              "queryRef": "CatalogoProdutos.V2 Faturamento líquido",
+              "nativeQueryRef": "Faturamento líquido",
+              "active": true
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "CatalogoProdutos"
+                    }
+                  },
+                  "Property": "V2 Unidades vendidas"
+                }
+              },
+              "queryRef": "CatalogoProdutos.V2 Unidades vendidas",
+              "nativeQueryRef": "Unidades",
+              "active": true
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "CatalogoProdutos"
+                    }
+                  },
+                  "Property": "V2 Descontos comerciais"
+                }
+              },
+              "queryRef": "CatalogoProdutos.V2 Descontos comerciais",
+              "nativeQueryRef": "Descontos",
+              "active": true
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "CatalogoProdutos"
+                    }
+                  },
+                  "Property": "V2 Margem bruta estimada"
+                }
+              },
+              "queryRef": "CatalogoProdutos.V2 Margem bruta estimada",
+              "nativeQueryRef": "Margem estimada",
+              "active": true
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "CatalogoProdutos"
+                    }
+                  },
+                  "Property": "V2 Margem bruta estimada %"
+                }
+              },
+              "queryRef": "CatalogoProdutos.V2 Margem bruta estimada %",
+              "nativeQueryRef": "Margem %",
+              "active": true
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Vendas e margem por categoria e produto'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "22D"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#18283B'"
+                    }
+                  }
+                }
+              }
+            },
+            "bold": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

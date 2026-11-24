@@ -1,0 +1,22 @@
+model Model
+	culture: pt-BR
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: pt-BR
+	valueFilterBehavior: independent
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["TabelaVendas","CaminhoArquivoExcel","CatalogoProdutos","Calendario"]
+
+annotation PBI_ProTooling = ["TMDLView_Desktop","DaxQueryView_Desktop","DevMode"]
+
+ref table TabelaVendas
+ref table DateTableTemplate_b6dd5cf8-9cf4-4549-87d7-2d2ce1dc1747
+ref table LocalDateTable_806da6b8-2032-46bf-b9ed-d6a09e90041b
+ref table CatalogoProdutos
+ref table Calendario
+
+ref cultureInfo pt-BR

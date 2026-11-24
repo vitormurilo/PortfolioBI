@@ -1,0 +1,16 @@
+{
+  "name": "PortfolioBI | Vendas e margem",
+  "dataColors": ["#087F8C", "#687C92", "#2454A4", "#A65D16", "#6C4AB0", "#497A52"],
+  "background": "#F2F5F9",
+  "foreground": "#18283B",
+  "tableAccent": "#087F8C",
+  "good": "#176B53",
+  "neutral": "#76500F",
+  "bad": "#A4313E",
+  "textClasses": {
+    "callout": { "fontFace": "Segoe UI Semibold", "fontSize": 30, "color": "#18283B" },
+    "title": { "fontFace": "Segoe UI Semibold", "fontSize": 14, "color": "#18283B" },
+    "header": { "fontFace": "Segoe UI Semibold", "fontSize": 12, "color": "#18283B" },
+    "label": { "fontFace": "Segoe UI", "fontSize": 11, "color": "#40546A" }
+  }
+}
