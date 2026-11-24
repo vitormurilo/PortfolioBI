@@ -53,3 +53,9 @@ A base contém 801 linhas, com vendas de janeiro a outubro de 2026. A fórmula d
 Em fevereiro, o faturamento líquido esperado é R$ 4.959,68 em 2025 e R$ 5.390,78 em 2026, uma variação de 8,69%. A base completa contempla R$ 112.789,72 de faturamento e 1.222 pedidos.
 
 Para atualizar o projeto em outra máquina, defina `CaminhoArquivoExcel` em **Transformar dados → Gerenciar parâmetros** com o caminho do arquivo local e selecione **Atualizar**. Ao incluir uma venda em `TabelaVendas`, preencha `Valor_Liquido` com quantidade × preço unitário − desconto. A tabela `CatalogoProdutos` fornece o custo de referência por ID de produto.
+
+## Validação no Power BI Desktop
+
+- Ao restringir o período na Visão executiva, os cartões passaram a R$ 58.708,70 de faturamento, 610 pedidos e R$ 28.405,80 de margem estimada. O gráfico também respondeu ao intervalo.
+- Ao limpar o filtro, a página voltou a R$ 112.789,72 de faturamento, 1.222 pedidos e R$ 52.148,92 de margem estimada.
+- As duas páginas foram exportadas com o período completo e conferidas antes de incluir as imagens no README.

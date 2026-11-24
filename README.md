@@ -11,6 +11,10 @@ Dois exemplos de decisões que o painel apoia:
 
 Os dados de 2025 e 2026 são sintéticos. A margem bruta estimada usa o custo de referência do catálogo. Veja as [regras de negócio e o escopo](projeto-01/escopo.md).
 
+![Visão executiva com indicadores e comparação anual](imagens/projeto-01-visao-executiva.png)
+
+![Ranking de produtos e matriz de vendas e margem](imagens/projeto-01-produtos-e-margem.png)
+
 ## Versão inicial · Análise de vendas
 
 **Projeto demonstrativo de Business Intelligence para análise de desempenho comercial de uma loja de acessórios para celulares.**
